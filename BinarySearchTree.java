@@ -6,13 +6,10 @@ public class BinarySearchTree {
     //default left and right of a node= null
     class Node{
         int data;
-        Node left,right,parent;
+        Node left,right;
 
         Node(int item){
             this.data=item;
-            right = left = null;
-            //parent is the child's parent's parent
-            parent = left.parent.parent;
         }
     }
 
@@ -22,21 +19,28 @@ public class BinarySearchTree {
     //insert a node with data= item
     //if tree has no root make node with the data=item
     //else apply property of BinaryTree
+    //following method has used iteration not recursion
     public void insert(int item){
         if(root == null)
-            root.data = item;
-        else if(item < root.data){
-            if(root.left==null)
-                return;
-            root=root.left;
-            insert(item);
-        }
-        else if(item > root.data){
-            if(root.right==null)
-                return;
-            root=root.right;
-            insert(item);
-        }
+            root = new Node(item);
+        else {
+        //while (true) {
+            Node temp;
+            temp = root;
+            while (temp.left != null && item < temp.data) {
+                temp = temp.left;
+            }
+            while (temp.right != null && item > temp.data) {
+                temp = temp.right;
+            }
+            if (temp.right == null && item > temp.data) {
+                temp.right = new Node(item);
+                //break;
+            }
+            else if (temp.left == null && item < temp.data) {
+                temp.left = new Node(item);
+                //break;
+            }
     }
 
     //if Tree has no node return true
